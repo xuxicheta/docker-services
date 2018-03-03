@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta name="author" content="Сайт предприятия Космос-коннект">
+	<title><!--#echo var="title"--></title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+<body>
+	<div class="global">
+		<div class="header">
+			<div class="phone">+7 (499) 736-21-84</div>
+	  	<h1><a href="/">ООО "Космос-Коннект"</a></h1>
+	  	<ul class="nav" id="main-nav">
+				<li><a href="/index.shtml"><span>Задачи предприятия</span></a></li>
+				<li><a href="/contacts.shtml"><span>Контакты</span></a></li>
+		    <li><a href="/doneworks.shtml"><span>Выполненные работы</span></a></li>
+			</ul>
+		</div><!--/header-->
+
+	<div class="container">
+	  <div class="content">

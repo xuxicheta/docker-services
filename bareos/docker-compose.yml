@@ -1,0 +1,108 @@
+version: '2'
+
+networks:
+  qbiknet:
+    external:
+      name: qbiknet
+
+services:
+  bareos-dir:
+    image: barcus/bareos-director:mysql
+    container_name: bareos-dir
+    ports:
+      - 9101:9101
+    volumes:
+      - ./conf/:/etc/bareos
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - DB_PASSWORD
+      - DB_HOST
+      - DB_PORT
+      - BAREOS_FD_HOST
+      - BAREOS_SD_HOST
+      - BAREOS_FD_PASSWORD
+      - BAREOS_SD_PASSWORD
+      - BAREOS_WEBUI_PASSWORD
+      - SMTP_HOST
+      - ADMIN_MAIL
+    depends_on:
+      - bareos-db
+    networks:
+      qbiknet:
+        aliases:
+          - bareos-dir.qbik
+
+
+  bareos-sd:
+    image: barcus/bareos-storage
+    container_name: bareos-sd
+    ports:
+      - 9103:9103
+    volumes:
+      - ./conf/:/etc/bareos
+      - /raid/bareos/restore:/restore
+      - /raid/bareos/storage:/var/lib/bareos/storage
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - BAREOS_SD_PASSWORD
+    networks:
+      qbiknet:
+        aliases:
+          - bareos-sd.qbik
+
+  bareos-fd:
+    image: barcus/bareos-client
+    container_name: bareos-fd
+    volumes:
+      - ./conf/:/etc/bareos
+      - /raid/doc/:/doc
+      - /raid/docker/:/docker
+      - /raid/bareos/restore:/restore
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - BAREOS_FD_PASSWORD
+    networks:
+      qbiknet:
+        aliases:
+          - bareos-fd.qbik
+
+  bareos-web:
+    image: barcus/bareos-webui
+    container_name: bareos-web
+#    ports:
+#      - 8080:80
+    environment:
+      - BAREOS_DIR_HOST
+    volumes:
+      - ./conf/web:/etc/bareos-webui
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      qbiknet:
+        aliases:
+          - bareos-web.qbik
+
+
+
+  bareos-db:
+    image: mysql:5.6
+    container_name: bareos-db
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - MYSQL_ROOT_PASSWORD
+    networks:
+      qbiknet:
+        aliases:
+          - bareos-db.qbik
+
+
+  smtpd:
+    image: namshi/smtp
+    container_name: bareos-mail
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      qbiknet:
+        aliases:
+          - bareos-mail.qbik

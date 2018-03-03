@@ -1,0 +1,26 @@
+version: '2'
+
+networks:
+  qbiknet:
+    external:
+      name: qbiknet
+
+services:
+  dokuwiki:
+    image: 'mprasil/dokuwiki'
+    container_name: 'dokuwiki'
+    restart: on-failure:10
+    hostname: dokuwiki
+#   ports:
+#   - '4000:80'
+    volumes:
+      - './data/:/dokuwiki/data/'
+      - './lib/plugins:/dokuwiki/lib/plugins/'
+      - './conf:/dokuwiki/conf/'
+      - './lib/tpl:/dokuwiki/lib/tpl/'
+      - './log:/var/log/lighttpd/'
+      - '/etc/localtime:/etc/localtime'
+    networks:
+      qbiknet:
+        aliases:
+          - dokuwiki.qbik

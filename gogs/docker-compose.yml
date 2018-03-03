@@ -1,0 +1,35 @@
+version: '2'
+
+networks:
+  qbiknet:
+    external:
+      name: qbiknet
+
+services:
+  gogs:
+    image: gogs/gogs
+    container_name: 'gogs'
+    restart: on-failure:10
+    ports:
+      - '10022:22'
+    volumes:
+      - './data:/data'
+    networks:
+      qbiknet:
+        aliases:
+          - gogs.qbik
+
+
+  gogs_postgres:
+    image: postgres:9.5
+    container_name: gogs_pg
+    restart: on-failure:10
+    environment:
+      -  POSTGRES_PASSWORD
+      -  POSTGRES_USER
+    volumes:
+      - './postgres/data/:/var/lib/postgresql/data'
+    networks:
+      qbiknet:
+        aliases:
+          - gogs_pg.qbik

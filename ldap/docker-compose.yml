@@ -1,0 +1,41 @@
+version: '2'
+
+networks:
+  qbiknet:
+    external:
+      name: qbiknet
+
+services:
+  ldap:
+    image: dinkel/openldap
+    container_name: 'ldap'
+    restart: on-failure:10
+#    ports:
+#    - 389:389
+    environment:
+    - SLAPD_PASSWORD
+    - SLAPD_DOMAIN
+    volumes:
+    - "./etc:/etc/ldap"
+    - "./data:/var/lib/ldap"
+    networks:
+      qbiknet:
+        aliases:
+          - ldap.qbik
+
+  ldapadmin:
+    image: dinkel/phpldapadmin
+    container_name: 'ldapadmin'
+    restart: on-failure:10
+#    ports:
+#    - 20080:80
+    links:
+    - ldap:openldap
+    environment:
+    - LDAP_SERVER_HOST
+    - LDAP_SERVER_PORT
+
+    networks:
+      qbiknet:
+        aliases:
+          - ldapadmin.qbik

@@ -1,0 +1,91 @@
+
+<!--#set var="title" value="Космос-коннект - Контакты"-->
+<!--#include file="header.shtml" -->
+<h2>Список сервисов</h2>
+<style>
+td {padding:4px;font-size:12pt}
+</style>
+<table border="1" cellpadding="10" cellspacing="0">
+<tr style="font-weight:bold; text-align:center">
+    <td class="tname">Название</td>
+    <td class="tlink">Ссылка</td>
+    <td class="tdesc">Описание</td>
+    <td class="tcont">Контейнер</td>
+    <td class="tstatus">Cтатус</td>
+    <td>Примечание</td>
+</tr>
+<tr>
+    <td>Сайт</td>
+    <td><a href="http://cosmos-connect.ru">http://cosmos-connect.ru</a></td>
+    <td>сайт</td>
+    <td>coscon</td>
+    <td>Работает</td>
+    <td>Nginx и простые странички с SSI
+      В планах авторизация на сайте -> Авторизация на сервисах, если это реально</td>
+</tr>
+<tr>
+    <td>Redmine</td>
+    <td><a href="http://cosmos-connect.ru:3000">http://cosmos-connect.ru:3000</a></td>
+    <td>система управления проектами</td>
+    <td>redmine_web, redmine_db</td>
+    <td>Работает</td>
+    <td>Как пользоваться, не вникал</td>
+</tr>
+<tr>
+    <td>Gitlab</td>
+    <td><a href="http://cosmos-connect.ru:10080">http://cosmos-connect.ru:10080</a></td>
+    <td>система управления проектами</td>
+    <td>sameersbn/gitlab:8.7.6, sameersbn/redis, sameersbn/postgresql:9.4-21</td>
+    <td>Работает</td>
+    <td>SSH по порту 10022</td>
+</tr>
+<tr>
+    <td>Samba</td>
+    <td><a href="smb:///cosmos-connect.ru">smb:///cosmos-connect.ru:10080</a></td>
+    <td>общая папка windows</td>
+    <td>Контейнер в планах</td>
+    <td>Работает для некоторых пользователей</td>
+    <td>В планах прикрутить авторизацию по ldap и контейнеризация</td>
+</tr>
+<tr>
+    <td>ftp</td>
+    <td><a href="ftp://cosmos-connect.ru">ftp://%username%@cosmos-connect.ru</a></td>
+    <td>Фтп сервер</td>
+    <td>Контейнер в планах</td>
+    <td>Работает для некоторых пользователей</td>
+    <td>В планах прикрутить авторизацию по ldap и контейнеризация</td>
+</tr>
+<tr>
+    <td>RabbitMQ</td>
+    <td><a href="smb:///cosmos-connect.ru">smb:///cosmos-connect.ru</a><br>\\cosmos-connect в windows</td>
+    <td>Фтп сервер</td>
+    <td>Контейнер в планах</td>
+    <td>Работает для некоторых пользователей</td>
+    <td>В планах прикрутить авторизацию по ldap и контейнеризация</td>
+</tr>
+<tr>
+    <td>RabbitMQ</td>
+    <td><a href="http://cosmos-connect.ru:15672/">http://cosmos-connect.ru:15672/</a></td>
+    <td>Брокер сообщений</td>
+    <td>rabbitmq:3.6.2-management </td>
+    <td>Работает</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SCM Manager</td>
+    <td><a href="http://cosmos-connect.ru:8080/">http://cosmos-connect.ru:8080/</a></td>
+    <td>Система версионирования</td>
+    <td>rabbitmq:3.6.2-management </td>
+    <td>Работает</td>
+    <td>В планах забить на него и перейти только на Gitlab</td>
+</tr>
+<tr>
+    <td>OwnCloud</td>
+    <td>нет</td>
+    <td>Для хранения файлов</td>
+    <td></td>
+    <td>Не работает</td>
+    <td>В планах</td>
+</tr>
+</table>
+<!--#include file="footer.shtml" -->

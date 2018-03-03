@@ -1,0 +1,39 @@
+version: '2'
+
+networks:
+  qbiknet:
+    external:
+      name: qbiknet
+
+services:
+  nextcloud:
+    image: nextcloud
+    restart: on-failure:10
+    container_name: next
+    links:
+    - next_pg:next_pg
+    volumes:
+    - './data/apps/:/var/www/html/apps'
+    - './data/config/:/var/www/html/config'
+    - './data/data/:/var/www/html/data'
+    - './data/core/:/var/www/html/core'
+    - '/raid/doc/:/doc'
+    - '/raid/pub/:/pub'
+    networks:
+      qbiknet:
+        aliases:
+          - nextcloud.qbik
+
+  next_pg:
+    image: postgres
+    restart: on-failure:10
+    container_name: next_pg
+    environment:
+    -  POSTGRES_PASSWORD
+    -  POSTGRES_USER
+    volumes:
+      - './postgres/data/:/var/lib/postgresql/data'
+    networks:
+      qbiknet:
+        aliases:
+          - next_pg.qbik

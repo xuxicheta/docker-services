@@ -1,0 +1,15 @@
+.local/
+.config/
+.cache/
+.env
+
+data
+lib
+log
+postgres
+bareos/conf
+
+mysql
+redis
+etc
+ssl
